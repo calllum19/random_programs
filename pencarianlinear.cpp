@@ -1,19 +1,20 @@
-#include <algorithm>
 #include <bits/stdc++.h>
 using namespace std;
 
 int minselisih(vector<int> &A, const int &X) {
-  int mindiff = 2e9;
-  for (int &value : A) {
-    mindiff = min(mindiff, abs(abs(X) - abs(value)));
+  int currentDiff, bestDiff, bestVal;
+  bestDiff = 2e9;
+  for (int i = 0; i < A.size(); ++i) {
+    currentDiff = abs(A[i] - X);
+    if (currentDiff < bestDiff) {
+      bestDiff = currentDiff;
+      bestVal = A[i];
+    } else if (currentDiff == bestDiff) {
+      if (A[i] < bestVal)
+        bestVal = A[i];
+    }
   }
-  if (X > 0) {
-    return mindiff + X;
-  } else if (0 > X) {
-    return X - mindiff;
-  } else {
-    return 0;
-  }
+  return bestVal;
 }
 
 int main(int argc, char *argv[]) {
